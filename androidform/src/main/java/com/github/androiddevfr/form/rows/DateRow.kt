@@ -9,8 +9,14 @@ import java.util.*
 
 open class DateRow(context: Context) : AbstractTextRow<Date>(context) {
 
+    //will be created by onCreateView
+    var dateView: View? = null
+
     init {
         validator = { v -> v != null }
+        onCreateView<DateRow> {
+            RelativeLayout(context) //TODO create view
+        }
     }
 
     var value: Date? = null
@@ -52,9 +58,5 @@ open class DateRow(context: Context) : AbstractTextRow<Date>(context) {
 
     override fun value(): Date? {
         return value
-    }
-
-    override fun onCreateView() : View {
-        return RelativeLayout(context) //TODO create view
     }
 }

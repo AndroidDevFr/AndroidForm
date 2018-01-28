@@ -1,13 +1,18 @@
 package com.github.androiddevfr.form.rows
 
 import android.content.Context
-import android.view.View
 import android.widget.EditText
 import android.widget.RelativeLayout
+import android.widget.TextView
 
 open abstract class AbstractTextRow<V>(context: Context) : Row<V>(context) {
     var title: String? = null
     var placeholder: String? = null
+
+    //will be created by onCreateView
+    var titleView: TextView? = null
+    //will be created by onCreateView
+    var placeholderView: TextView? = null
 
     //override to have a custom behavior on value click (eg: open dialog)
     open fun onValueClicked(){}
@@ -15,19 +20,18 @@ open abstract class AbstractTextRow<V>(context: Context) : Row<V>(context) {
 
 open class TextRow(context: Context) : AbstractTextRow<String>(context) {
 
-    lateinit var edit: EditText
+    //will be created by onCreateView
+    var editView: EditText? = null
 
     override fun value(): String? {
-        return edit.text.toString()
+        return editView?.text.toString()
     }
 
     init {
         validator = { v -> v != null && v.isNotEmpty() }
+        onCreateView<TextRow>{
+            RelativeLayout(context) //TODO create view
+        }
     }
-
-    override fun onCreateView() : View {
-        return RelativeLayout(context) //TODO create view
-    }
-
 }
 
