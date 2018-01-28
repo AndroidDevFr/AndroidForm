@@ -1,13 +1,17 @@
-package com.github.androiddevfr.form
+package com.github.androiddevfr.form.section
 
 import android.content.Context
 import android.view.View
 import android.widget.LinearLayout
+import com.github.androiddevfr.form.rows.DateRow
+import com.github.androiddevfr.form.rows.PhoneRow
+import com.github.androiddevfr.form.rows.Row
+import com.github.androiddevfr.form.rows.TextRow
 
 class Section(private val context: Context, var title: String) {
     var id = -1
 
-    private val rows = mutableListOf<Row<*>>()
+    val rows = mutableListOf<Row<*>>()
 
     /**
      * Add a row with title/placeholder and an EditText

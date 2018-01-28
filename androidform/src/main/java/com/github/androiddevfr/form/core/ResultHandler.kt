@@ -1,4 +1,4 @@
-package com.github.androiddevfr.form
+package com.github.androiddevfr.form.core
 
 class ResultHandler<V> {
     private val listeners = mutableSetOf<(V) -> Unit>()

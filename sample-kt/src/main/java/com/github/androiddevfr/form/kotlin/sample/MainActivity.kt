@@ -2,7 +2,7 @@ package com.github.androiddevfr.form.kotlin.sample
 
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
-import com.github.androiddevfr.form.DateRow
+import com.github.androiddevfr.form.rows.DateRow
 import com.github.androiddevfr.form.Form
 import java.util.*
 

@@ -2,10 +2,10 @@ package com.github.androiddevfr.form
 
 import android.content.Context
 import android.util.AttributeSet
-import android.view.View
-import android.widget.EditText
 import android.widget.LinearLayout
-import java.util.*
+import com.github.androiddevfr.form.rows.AbstractTextRow
+import com.github.androiddevfr.form.rows.Row
+import com.github.androiddevfr.form.section.Section
 
 class Form : LinearLayout {
 
