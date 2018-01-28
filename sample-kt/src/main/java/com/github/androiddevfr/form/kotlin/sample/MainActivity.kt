@@ -22,6 +22,9 @@ class MainActivity : AppCompatActivity() {
                     id = 2
                     title = "Text Row"
                     placeholder = "Enter text here"
+                    validator = { s ->
+                        s != null && s.length > 3
+                    }
                 }
                 phoneRow {
                     id = 3

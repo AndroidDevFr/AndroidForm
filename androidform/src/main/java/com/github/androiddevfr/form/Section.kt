@@ -1,10 +1,13 @@
 package com.github.androiddevfr.form
 
 import android.content.Context
+import android.view.View
+import android.widget.LinearLayout
 
 class Section(private val context: Context, var title: String) {
-    var id = -1;
-    val rows = mutableListOf<Row<*>>()
+    var id = -1
+
+    private val rows = mutableListOf<Row<*>>()
 
     /**
      * Add a row with title/placeholder and an EditText
@@ -51,9 +54,16 @@ class Section(private val context: Context, var title: String) {
         return this
     }
 
+    /**
+     * Inline setter for Java usage
+     */
     fun id(id: Int): Section {
         this.id = id;
         return this;
+    }
+
+    fun onCreateView(): View {
+        return LinearLayout(context) //TODO create section's view
     }
 
 }
