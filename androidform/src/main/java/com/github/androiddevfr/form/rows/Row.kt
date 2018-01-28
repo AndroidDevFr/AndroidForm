@@ -49,8 +49,14 @@ abstract class Row<V>(val context: Context) {
         valueChangeListeners.add(listener as (Row<V>, V?) -> Unit)
     }
 
+    /**
+     * Called by Section/Form
+     * Will create the view
+     */
     fun create(){
         this.view = onCreateView.invoke(this)
-
+        viewCreatedListeners.forEach{
+            it.invoke(this)
+        }
     }
 }
