@@ -53,7 +53,7 @@ class Form : LinearLayout {
 class FormCreator(private val form: Form) {
 
     fun section(title: String, block: Section.() -> Unit): FormCreator {
-        val section = Section(title)
+        val section = Section(form.context, title)
         form.sections.add(section)
         block.invoke(section)
         return this

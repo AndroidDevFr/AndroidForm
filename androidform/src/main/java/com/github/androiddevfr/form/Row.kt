@@ -1,6 +1,8 @@
 package com.github.androiddevfr.form
 
-abstract class Row<V>() {
+import android.content.Context
+
+abstract class Row<V>(val context: Context) {
     var id: Int = -1
 
     var validator: (V?) -> Boolean = { v -> false }

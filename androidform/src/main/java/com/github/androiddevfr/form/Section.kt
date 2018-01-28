@@ -1,6 +1,8 @@
 package com.github.androiddevfr.form
 
-class Section(var title: String) {
+import android.content.Context
+
+class Section(private val context: Context, var title: String) {
     var id = -1;
     val rows = mutableListOf<Row<*>>()
 
@@ -14,7 +16,7 @@ class Section(var title: String) {
      * ---------------------------------
      */
     fun textRow(block: (TextRow.() -> Unit)) : Section {
-        return row(TextRow(), block)
+        return row(TextRow(context), block)
     }
 
     /**
@@ -27,7 +29,7 @@ class Section(var title: String) {
      * ---------------------------------
      */
     fun phoneRow(block: (PhoneRow.() -> Unit)) : Section {
-        return row(PhoneRow(), block)
+        return row(PhoneRow(context), block)
     }
 
     /**
@@ -40,7 +42,7 @@ class Section(var title: String) {
      * ---------------------------------
      */
     fun dateRow(block: (DateRow.() -> Unit)) : Section {
-        return row(DateRow(), block)
+        return row(DateRow(context), block)
     }
 
     fun <R : Row<*>> row(row: R, block: (R.() -> Unit)) : Section {
