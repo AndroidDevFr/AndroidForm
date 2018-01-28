@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import com.github.androiddevfr.form.rows.DateRow
 import com.github.androiddevfr.form.Form
+import com.github.androiddevfr.form.rows.TextRow
 import java.util.*
 
 class MainActivity : AppCompatActivity() {
@@ -25,12 +26,20 @@ class MainActivity : AppCompatActivity() {
                     validator = { s ->
                         s != null && s.length > 3
                     }
+
+                    //listeners
+                    addValueChangeListener<TextRow> { textRow, value ->
+                        //change background following value, for example
+                        //textRow.view?.background = ...
+                    }
+                    addOnViewCreatedListener<TextRow> { textRow ->
+
+                    }
                 }
                 phoneRow {
                     id = 3
                     title = "Phone Row"
                     placeholder = "020202020202"
-
                 }
             }
             section("Section2") {

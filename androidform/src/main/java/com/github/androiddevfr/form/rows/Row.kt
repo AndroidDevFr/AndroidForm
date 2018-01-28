@@ -8,7 +8,12 @@ abstract class Row<V>(val context: Context) {
 
     var validator: ((V?) -> Boolean) = { v -> false }
 
-    private val valueChangeListeners = mutableListOf<((V?) -> Unit)>()
+    private val valueChangeListeners = mutableListOf<((Row<V>, V?) -> Unit)>()
+    private val viewCreatedListeners = mutableListOf<((Row<V>) -> Unit)>()
+
+    var onCreateView:((Row<V>) -> View) = {
+        View(context)
+    }
 
     /**
      * Will contain the view, created by onCreateView()
@@ -21,10 +26,6 @@ abstract class Row<V>(val context: Context) {
      */
     abstract fun value() : V?
 
-    fun addValueChangeListener(listener: (V?) -> Unit){
-        valueChangeListeners.add(listener)
-    }
-
     /**
      * Ping all listeners when the row value has changed
      * Has to be called from row's implementations
@@ -32,13 +33,24 @@ abstract class Row<V>(val context: Context) {
     protected fun onValueChange(){
         val value = value()
         valueChangeListeners.forEach{
-            it.invoke(value)
+            it.invoke(this, value)
         }
     }
 
-    /**
-     * Overriden by rows implementations, will return the row's view,
-     * Will be added into the Section
-     */
-    abstract fun onCreateView() : View
+    fun <R : Row<V>> onCreateView(block: ((R) -> View)) {
+        this.onCreateView = block as (Row<V>) -> View
+    }
+
+    fun <R : Row<V>> addOnViewCreatedListener(listener: ((R) -> Unit)) {
+        viewCreatedListeners.add(listener as (Row<V>) -> Unit)
+    }
+
+    fun <R : Row<V>> addValueChangeListener(listener: (R, V?) -> Unit){
+        valueChangeListeners.add(listener as (Row<V>, V?) -> Unit)
+    }
+
+    fun create(){
+        this.view = onCreateView.invoke(this)
+
+    }
 }
