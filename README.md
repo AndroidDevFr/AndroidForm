@@ -48,13 +48,20 @@ val row = form.rowById(5) as DateRow?
 val value = row?.value
 ```
 
-# TODO
+# Want to contribute
 
-- List all form components
-- Customize each component
-- Generate Views from Sections / Row
-- Write Doc
-- Complete the README
+Check the Github project : https://github.com/AndroidDevFr/AndroidForm/projects/1
+
+Follow the guidelines :
+
+1) Everything has to be overridable directly using lambdas, eg: `onViewCreated`, avoid if possible abstract methods
+
+2) The code has to be written in English (of course)
+
+3) Please make a Pull Request for each feature, including a sample code
+
+4) Have Fun doing some Kotlin :)
+
 
 # Credits
 
