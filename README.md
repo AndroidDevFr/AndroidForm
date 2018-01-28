@@ -56,17 +56,20 @@ val value = row?.value
 - Write Doc
 - Complete the README
 
-Credits
--------
+# Credits
 
 This project is an open source initiative of the Slack French Community **AndroidDevFr**
 
 To join this slack (french speakers only) : http://bit.ly/AndroidDevFr
 
-License
---------
+# Inspiration
 
-    Copyright 2017 AndroidDevFr, Inc.
+This project is inspired from a swift open source library Eureka, by **xmartlabs**
+https://github.com/xmartlabs/Eureka
+
+# License
+
+    Copyright 2018 AndroidDevFr, Inc.
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
