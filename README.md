@@ -20,6 +20,14 @@ form.create {
                     title = "Phone Row"
                     placeholder = "020202020202"
 
+                    //listeners
+                    addValueChangeListener<PhoneRow> { phoneRow, value ->
+                        //change background following value, for example
+                        //textRow.view?.background = ...
+                    }
+                    addOnViewCreatedListener<PhoneRow> { phoneRow ->
+
+                    }
                 }
             }
             section("Section2") {
