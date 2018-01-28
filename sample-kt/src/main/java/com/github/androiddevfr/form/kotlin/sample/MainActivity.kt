@@ -41,7 +41,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         //all values
-        var values: Map<Int, Any?> = form.values()
+        var values = form.values()
 
         //single value
         val row = form.rowById(5) as DateRow?
