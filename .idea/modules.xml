@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/TestForm.iml" filepath="$PROJECT_DIR$/TestForm.iml" />
+      <module fileurl="file://$PROJECT_DIR$/androidform/androidform.iml" filepath="$PROJECT_DIR$/androidform/androidform.iml" />
+      <module fileurl="file://$PROJECT_DIR$/sample-java/sample-java.iml" filepath="$PROJECT_DIR$/sample-java/sample-java.iml" />
+      <module fileurl="file://$PROJECT_DIR$/sample-kt/app.iml" filepath="$PROJECT_DIR$/sample-kt/app.iml" />
+    </modules>
+  </component>
+</project>
