@@ -15,10 +15,6 @@ class Form : LinearLayout {
     constructor(context: Context?, attrs: AttributeSet?) : super(context, attrs)
     constructor(context: Context?, attrs: AttributeSet?, defStyleAttr: Int) : super(context, attrs, defStyleAttr)
 
-    fun create(): FormCreator {
-        return FormCreator(this)
-    }
-
     fun create(block: (FormCreator.() -> Unit)): FormCreator {
         val formCreator = FormCreator(this)
         block.invoke(formCreator);
@@ -26,8 +22,8 @@ class Form : LinearLayout {
         return formCreator
     }
 
-    fun build() : View {
-        return View(context) //TODO
+    fun build() {
+        //TODO build the view
     }
 
     fun values() : Map<Int, Any?> {
@@ -63,114 +59,5 @@ class FormCreator(private val form: Form) {
         return this
     }
 
-}
-
-class Section(var title: String) {
-    var id = -1;
-    val rows = mutableListOf<Row<*>>()
-
-    /**
-     * Add a row with title/placeholder and an EditText
-     *
-     * ---------------------------------
-     * | TITLE                         |
-     * |                      EDITTEXT |
-     * | PLACEHOLDER                   |
-     * ---------------------------------
-     */
-    fun textRow(block: (TextRow.() -> Unit)) : Section {
-        return row(TextRow(), block)
-    }
-
-    /**
-     * Add a row with title/placeholder and an EditText(phone)
-     *
-     * ---------------------------------
-     * | TITLE                         |
-     * |                        PHONE  |
-     * | PLACEHOLDER                   |
-     * ---------------------------------
-     */
-    fun phoneRow(block: (PhoneRow.() -> Unit)) : Section {
-        return row(PhoneRow(), block)
-    }
-
-    /**
-     * Add a row with title/placeholder and an DatePicher)
-     *
-     * ---------------------------------
-     * | TITLE                         |
-     * |                        DATE   | -> Open Date Picker
-     * | PLACEHOLDER                   |
-     * ---------------------------------
-     */
-    fun dateRow(block: (DateRow.() -> Unit)) : Section {
-        return row(DateRow(), block)
-    }
-
-    fun <R : Row<*>> row(row: R, block: (R.() -> Unit)) : Section {
-        rows.add(row)
-        block.invoke(row)
-        return this
-    }
-
-    fun id(id: Int): Section {
-        this.id = id;
-        return this;
-    }
-
-}
-
-abstract class Row<V> {
-    var id: Int = -1
-
-    abstract fun value() : V?
-    abstract fun validate() : Boolean
-}
-
-open abstract class AbstractTextRow<V> : Row<V>() {
-    var title: String? = null
-    var placeholder: String? = null
-}
-
-open class TextRow : AbstractTextRow<String>() {
-
-    lateinit var edit: EditText
-
-    override fun value(): String? {
-        return edit.text.toString()
-    }
-
-    override fun validate() : Boolean {
-        return edit.text.isNotEmpty()
-    }
-
-}
-
-open class PhoneRow : TextRow(){
-
-    override fun validate() : Boolean {
-        return true; //TODO : Validate
-    }
-
-}
-
-open class DateRow : AbstractTextRow<Date>(){
-    override fun validate(): Boolean {
-        return value != null;
-    }
-
-    var value: Date? = null
-
-    private var clickAction: ((DateRow) -> Date)? = null
-
-    fun customizePickDate(callback: ((DateRow) -> Date)): DateRow {
-        this.clickAction = callback
-        return this
-    }
-
-    override fun value(): Date? {
-        return value
-    }
 }
 
