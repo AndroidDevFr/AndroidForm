@@ -2,6 +2,7 @@ package com.github.androiddevfr.form.section
 
 import android.content.Context
 import android.view.View
+import android.view.ViewGroup
 import android.widget.LinearLayout
 import com.github.androiddevfr.form.rows.DateRow
 import com.github.androiddevfr.form.rows.PhoneRow
@@ -62,12 +63,18 @@ class Section(private val context: Context, var title: String) {
      * Inline setter for Java usage
      */
     fun id(id: Int): Section {
-        this.id = id;
-        return this;
+        this.id = id
+        return this
     }
 
     fun onCreateView(): View {
-        return LinearLayout(context) //TODO create section's view
+        val layout = LinearLayout(context)
+        layout.orientation = LinearLayout.VERTICAL
+        rows.forEach{ row ->
+            row.create()
+            layout.addView(row.view, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
+        }
+        return layout
     }
 
 }
