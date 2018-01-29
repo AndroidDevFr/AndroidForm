@@ -16,11 +16,17 @@ open abstract class AbstractTextRow<V>(context: Context) : Row<V>(context) {
     //will be created by onCreateView
     var titleView: TextView? = null
 
+    /**
+     * Implementation of the TitleView visual aspect
+     */
     protected var customizeTitleView: ((AbstractTextRow<V>, TextView) -> Unit) = { row, textView ->
         textView.setTextColor(Color.parseColor("#3E3E3E"))
         textView.textSize = 16f
     }
 
+    /**
+     * Use this lambda to change the visual aspect of the TitleView
+     */
     protected fun createTitleView(): TextView {
         titleView = AppCompatTextView(context)
         titleView?.text = title
@@ -46,11 +52,17 @@ open class TextRow(context: Context) : AbstractTextRow<String>(context) {
         return editView?.text.toString()
     }
 
+    /**
+     * Implementation of the EditText visual aspect
+     */
     protected var customizeEditText: ((TextRow, EditText) -> Unit) = { row, editText ->
         editText.setTextColor(Color.parseColor("#3E3E3E"))
         editText.textSize = 16f
     }
 
+    /**
+     * Use this lambda to change the visual aspect of the EditText
+     */
     fun customizeEditText(block: ((TextRow, EditText) -> Unit)) {
         this.customizeEditText = block
     }
@@ -67,6 +79,7 @@ open class TextRow(context: Context) : AbstractTextRow<String>(context) {
         onCreateView<TextRow> {
             val layout = RelativeLayout(context)
 
+            //Generated the EditText
             createEditText()
             val editTextLayoutParams = RelativeLayout.LayoutParams(WRAP_CONTENT, WRAP_CONTENT)
             editTextLayoutParams.leftMargin = DimensionUtils.doToPx(16f)
@@ -78,6 +91,7 @@ open class TextRow(context: Context) : AbstractTextRow<String>(context) {
             editView?.layoutParams = editTextLayoutParams
             layout.addView(editView)
 
+            //Generated the Title
             createTitleView()
             val titleLayoutParams = RelativeLayout.LayoutParams(WRAP_CONTENT, WRAP_CONTENT)
             titleLayoutParams.leftMargin = DimensionUtils.doToPx(16f)
