@@ -2,6 +2,8 @@ package com.github.androiddevfr.form
 
 import android.content.Context
 import android.util.AttributeSet
+import android.view.ViewGroup.LayoutParams.MATCH_PARENT
+import android.view.ViewGroup.LayoutParams.WRAP_CONTENT
 import android.widget.LinearLayout
 import com.github.androiddevfr.form.rows.AbstractTextRow
 import com.github.androiddevfr.form.rows.Row
@@ -15,6 +17,10 @@ class Form : LinearLayout {
     constructor(context: Context?, attrs: AttributeSet?) : super(context, attrs)
     constructor(context: Context?, attrs: AttributeSet?, defStyleAttr: Int) : super(context, attrs, defStyleAttr)
 
+    init {
+        orientation = VERTICAL
+    }
+
     fun create(block: (FormCreator.() -> Unit)): FormCreator {
         val formCreator = FormCreator(this)
         block.invoke(formCreator);
@@ -22,8 +28,11 @@ class Form : LinearLayout {
         return formCreator
     }
 
-    fun build() {
-        //TODO build the view
+    private fun build() {
+        sections.forEach{ section ->
+            val sectionView = section.onCreateView()
+            addView(sectionView, MATCH_PARENT, WRAP_CONTENT)
+        }
     }
 
     fun values() : Map<Int, Any?> {
