@@ -8,37 +8,42 @@ Generates a form for Android
 
 ```kotlin
 form.create {
-            section("Section1") {
-                id = 0
-                textRow {
-                    id = 2
-                    title = "Text Row"
-                    placeholder = "Enter text here"
-                }
-                phoneRow {
-                    id = 3
-                    title = "Phone Row"
-                    placeholder = "020202020202"
 
-                    //listeners
-                    addValueChangeListener<PhoneRow> { phoneRow, value ->
-                        //change background following value, for example
-                        //textRow.view?.background = ...
-                    }
-                    addOnViewCreatedListener<PhoneRow> { phoneRow ->
-
-                    }
-                }
+    section("Section1") {
+        id = 0
+        textRow {
+            id = 2
+            title = "Text Row"
+            placeholder = "Enter text here"
+            validator = { s ->
+                s != null && s.length > 3
             }
-            section("Section2") {
-                id = 1
-                dateRow {
-                    id = 5
-                    title = "Text Row"
-                    value = Date()
-                }
+
+            //listeners
+            addValueChangeListener<TextRow> { textRow, value ->
+                //change background following value, for example
+                //textRow.view?.background = ...
+            }
+            addOnViewCreatedListener<TextRow> { textRow ->
+
             }
         }
+        phoneRow {
+            id = 3
+            title = "Phone Row"
+            placeholder = "020202020202"
+        }
+    }
+    section("Section2") {
+        id = 1
+        dateRow {
+            id = 5
+            title = "Text Row"
+            value = Date()
+        }
+    }
+
+}
 ```
 
 # Fetch values
