@@ -52,6 +52,7 @@ abstract class Row<V>(val context: Context) {
     /**
      * Called by Section/Form
      * Will create the view
+     * Then ping all "viewCreated" listeners
      */
     fun create(){
         this.view = onCreateView.invoke(this)

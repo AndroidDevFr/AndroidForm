@@ -103,6 +103,7 @@ open class TextRow(context: Context) : AbstractTextRow<String>(context) {
             titleView?.layoutParams = titleLayoutParams
             layout.addView(titleView)
 
+
             layout
         }
     }
