@@ -2,6 +2,7 @@ package com.github.androiddevfr.form.rows
 
 import android.content.Context
 import android.view.View
+import android.view.ViewGroup
 
 abstract class Row<V>(val context: Context) {
     var id: Int = -1
@@ -59,5 +60,6 @@ abstract class Row<V>(val context: Context) {
         viewCreatedListeners.forEach{
             it.invoke(this)
         }
+        this.view?.layoutParams = ViewGroup.MarginLayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
     }
 }

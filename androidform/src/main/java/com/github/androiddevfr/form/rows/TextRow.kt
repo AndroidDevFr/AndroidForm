@@ -11,6 +11,14 @@ import android.widget.TextView
 import com.github.androiddevfr.form.core.DimensionUtils
 
 open abstract class AbstractTextRow<V>(context: Context) : Row<V>(context) {
+
+    companion object {
+        val DEFAULT_MARGIN_TOP = 6
+        val DEFAULT_MARGIN_BOTTOM = 6
+        val DEFAULT_MARGIN_LEFT = 16
+        val DEFAULT_MARGIN_RIGHT = 16
+    }
+
     var title: String? = null
 
     //will be created by onCreateView
@@ -82,10 +90,10 @@ open class TextRow(context: Context) : AbstractTextRow<String>(context) {
             //Generated the EditText
             createEditText()
             val editTextLayoutParams = RelativeLayout.LayoutParams(WRAP_CONTENT, WRAP_CONTENT)
-            editTextLayoutParams.leftMargin = DimensionUtils.doToPx(16f)
-            editTextLayoutParams.topMargin = DimensionUtils.doToPx(16f)
-            editTextLayoutParams.bottomMargin = DimensionUtils.doToPx(16f)
-            editTextLayoutParams.rightMargin = DimensionUtils.doToPx(16f)
+            editTextLayoutParams.leftMargin = DimensionUtils.dpToPx(DEFAULT_MARGIN_LEFT)
+            editTextLayoutParams.topMargin = DimensionUtils.dpToPx(DEFAULT_MARGIN_TOP)
+            editTextLayoutParams.bottomMargin = DimensionUtils.dpToPx(DEFAULT_MARGIN_BOTTOM)
+            editTextLayoutParams.rightMargin = DimensionUtils.dpToPx(DEFAULT_MARGIN_RIGHT)
             editTextLayoutParams.addRule(RelativeLayout.CENTER_VERTICAL)
             editTextLayoutParams.addRule(RelativeLayout.ALIGN_PARENT_RIGHT)
             editView?.layoutParams = editTextLayoutParams
@@ -94,15 +102,14 @@ open class TextRow(context: Context) : AbstractTextRow<String>(context) {
             //Generated the Title
             createTitleView()
             val titleLayoutParams = RelativeLayout.LayoutParams(WRAP_CONTENT, WRAP_CONTENT)
-            titleLayoutParams.leftMargin = DimensionUtils.doToPx(16f)
-            titleLayoutParams.topMargin = DimensionUtils.doToPx(16f)
-            titleLayoutParams.bottomMargin = DimensionUtils.doToPx(16f)
-            titleLayoutParams.rightMargin = DimensionUtils.doToPx(16f)
+            titleLayoutParams.leftMargin = DimensionUtils.dpToPx(DEFAULT_MARGIN_LEFT)
+            titleLayoutParams.topMargin = DimensionUtils.dpToPx(DEFAULT_MARGIN_TOP)
+            titleLayoutParams.bottomMargin = DimensionUtils.dpToPx(DEFAULT_MARGIN_BOTTOM)
+            titleLayoutParams.rightMargin = DimensionUtils.dpToPx(DEFAULT_MARGIN_RIGHT)
             titleLayoutParams.addRule(RelativeLayout.CENTER_VERTICAL)
             titleLayoutParams.addRule(RelativeLayout.ALIGN_PARENT_LEFT)
             titleView?.layoutParams = titleLayoutParams
             layout.addView(titleView)
-
 
             layout
         }
