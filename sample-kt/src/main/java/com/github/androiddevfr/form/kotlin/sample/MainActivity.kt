@@ -2,9 +2,11 @@ package com.github.androiddevfr.form.kotlin.sample
 
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
-import com.github.androiddevfr.form.rows.DateRow
+import android.util.Log
 import com.github.androiddevfr.form.Form
+import com.github.androiddevfr.form.rows.DateRow
 import com.github.androiddevfr.form.rows.TextRow
+import kotlinx.android.synthetic.main.activity_main.*
 import java.util.*
 
 class MainActivity : AppCompatActivity() {
@@ -46,14 +48,20 @@ class MainActivity : AppCompatActivity() {
                 id = 1
                 dateRow {
                     id = 5
-                    title = "Text Row"
+                    title = "Date Row"
+                    defaultDate = Date()
                     value = Date()
                 }
             }
         }
 
-        //all values
-        var values = form.values()
+        getValues.setOnClickListener {
+            //all values
+            val values = form.values()
+
+            Log.d("values", values.toString())
+        }
+
 
         //single value
         val row = form.rowById(5) as DateRow?

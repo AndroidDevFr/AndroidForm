@@ -12,4 +12,12 @@ class ResultHandler<V> {
             it.invoke(value)
         }
     }
+
+    companion object {
+        fun <V> create(block: ((ResultHandler<V>) -> Unit)) : ResultHandler<V> {
+            val resultHandler = ResultHandler<V>()
+            block.invoke(resultHandler)
+            return resultHandler
+        }
+    }
 }
