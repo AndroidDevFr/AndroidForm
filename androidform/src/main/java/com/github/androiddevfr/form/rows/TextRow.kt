@@ -8,7 +8,7 @@ import android.widget.EditText
 import android.widget.RelativeLayout
 import com.github.androiddevfr.form.core.DimensionUtils
 
-open class TextRow(context: Context) : AbstractRow<String>(context) {
+open class TextRow(context: Context) : AbstractTitleRow<String>(context) {
 
     //will be created by onCreateView
     var editView: EditText? = null

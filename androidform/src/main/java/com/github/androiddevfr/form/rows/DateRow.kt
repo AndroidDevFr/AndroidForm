@@ -11,7 +11,7 @@ import com.github.androiddevfr.form.core.ResultHandler
 import java.text.SimpleDateFormat
 import java.util.*
 
-open class DateRow(context: Context) : AbstractRow<Date>(context) {
+open class DateRow(context: Context) : AbstractTitleRow<Date>(context) {
 
     //will be created by onCreateView
     var dateView: TextView? = null

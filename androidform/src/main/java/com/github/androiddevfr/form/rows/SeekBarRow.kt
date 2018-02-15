@@ -7,7 +7,7 @@ import android.widget.RelativeLayout
 import android.widget.SeekBar
 import com.github.androiddevfr.form.core.DimensionUtils
 
-open class SeekBarRow(context: Context) : AbstractRow<Int>(context) {
+open class SeekBarRow(context: Context) : AbstractTitleRow<Int>(context) {
 
     companion object {
         const val SEEK_BAR_MIN_WIDTH_DP = 128
@@ -36,10 +36,10 @@ open class SeekBarRow(context: Context) : AbstractRow<Int>(context) {
             //Generated the Slider
             createSeekBar()
             val seekBarLayoutParams = RelativeLayout.LayoutParams(DimensionUtils.dpToPx(SEEK_BAR_MIN_WIDTH_DP), ViewGroup.LayoutParams.WRAP_CONTENT)
-            seekBarLayoutParams.leftMargin = DimensionUtils.dpToPx(AbstractRow.DEFAULT_MARGIN_LEFT)
-            seekBarLayoutParams.topMargin = DimensionUtils.dpToPx(AbstractRow.DEFAULT_MARGIN_TOP)
-            seekBarLayoutParams.bottomMargin = DimensionUtils.dpToPx(AbstractRow.DEFAULT_MARGIN_BOTTOM)
-            seekBarLayoutParams.rightMargin = DimensionUtils.dpToPx(AbstractRow.DEFAULT_MARGIN_RIGHT)
+            seekBarLayoutParams.leftMargin = DimensionUtils.dpToPx(AbstractTitleRow.DEFAULT_MARGIN_LEFT)
+            seekBarLayoutParams.topMargin = DimensionUtils.dpToPx(AbstractTitleRow.DEFAULT_MARGIN_TOP)
+            seekBarLayoutParams.bottomMargin = DimensionUtils.dpToPx(AbstractTitleRow.DEFAULT_MARGIN_BOTTOM)
+            seekBarLayoutParams.rightMargin = DimensionUtils.dpToPx(AbstractTitleRow.DEFAULT_MARGIN_RIGHT)
             seekBarLayoutParams.addRule(RelativeLayout.CENTER_VERTICAL)
             seekBarLayoutParams.addRule(RelativeLayout.ALIGN_PARENT_RIGHT)
             seekBarView?.layoutParams = seekBarLayoutParams
@@ -48,10 +48,10 @@ open class SeekBarRow(context: Context) : AbstractRow<Int>(context) {
             //Generated the Title
             createTitleView()
             val titleLayoutParams = RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT)
-            titleLayoutParams.leftMargin = DimensionUtils.dpToPx(AbstractRow.DEFAULT_MARGIN_LEFT)
-            titleLayoutParams.topMargin = DimensionUtils.dpToPx(AbstractRow.DEFAULT_MARGIN_TOP)
-            titleLayoutParams.bottomMargin = DimensionUtils.dpToPx(AbstractRow.DEFAULT_MARGIN_BOTTOM)
-            titleLayoutParams.rightMargin = DimensionUtils.dpToPx(AbstractRow.DEFAULT_MARGIN_RIGHT)
+            titleLayoutParams.leftMargin = DimensionUtils.dpToPx(AbstractTitleRow.DEFAULT_MARGIN_LEFT)
+            titleLayoutParams.topMargin = DimensionUtils.dpToPx(AbstractTitleRow.DEFAULT_MARGIN_TOP)
+            titleLayoutParams.bottomMargin = DimensionUtils.dpToPx(AbstractTitleRow.DEFAULT_MARGIN_BOTTOM)
+            titleLayoutParams.rightMargin = DimensionUtils.dpToPx(AbstractTitleRow.DEFAULT_MARGIN_RIGHT)
             titleLayoutParams.addRule(RelativeLayout.CENTER_VERTICAL)
             titleLayoutParams.addRule(RelativeLayout.ALIGN_PARENT_LEFT)
             titleView?.layoutParams = titleLayoutParams
