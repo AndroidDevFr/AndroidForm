@@ -6,8 +6,8 @@ import android.util.Log
 import com.github.androiddevfr.form.Form
 import com.github.androiddevfr.form.rows.DateRow
 import com.github.androiddevfr.form.rows.TextRow
-import kotlinx.android.synthetic.main.activity_main.*
-import java.util.*
+import kotlinx.android.synthetic.main.activity_main.getValues
+import java.util.Date
 
 class MainActivity : AppCompatActivity() {
 
@@ -53,13 +53,24 @@ class MainActivity : AppCompatActivity() {
                     value = Date()
                 }
             }
+            section("Section 3") {
+                id = 6
+                seekBarRow {
+                    id = 7
+                    title = "Slider row"
+                    maxValue = 42
+                    value = 33
+                }
+            }
         }
 
         getValues.setOnClickListener {
             //all values
             val values = form.values()
 
-            Log.d("values", values.toString())
+            for ((key, value) in values.entries) {
+                Log.i("values", "$key → $value")
+            }
         }
 
 
