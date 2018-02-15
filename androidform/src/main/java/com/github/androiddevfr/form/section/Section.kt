@@ -14,6 +14,7 @@ import com.github.androiddevfr.form.core.DimensionUtils.dpToPx
 import com.github.androiddevfr.form.rows.DateRow
 import com.github.androiddevfr.form.rows.PhoneRow
 import com.github.androiddevfr.form.rows.Row
+import com.github.androiddevfr.form.rows.SeekBarRow
 import com.github.androiddevfr.form.rows.TextRow
 
 class Section(private val context: Context, var title: String) {
@@ -71,6 +72,19 @@ class Section(private val context: Context, var title: String) {
      */
     fun dateRow(block: (DateRow.() -> Unit)): Section {
         return row(DateRow(context), block)
+    }
+
+    /**
+     * Add a row with title/placeholder and a SeekBar
+     *
+     * ---------------------------------
+     * | TITLE                         |
+     * |                     -----O--  |
+     * | PLACEHOLDER                   |
+     * ---------------------------------
+     */
+    fun seekBarRow(block: (SeekBarRow.() -> Unit)): Section {
+        return row(SeekBarRow(context), block)
     }
 
     fun <R : Row<*>> row(row: R, block: (R.() -> Unit)): Section {

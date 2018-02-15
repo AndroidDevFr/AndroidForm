@@ -8,7 +8,7 @@ import android.view.ViewGroup
 import android.view.ViewGroup.LayoutParams.MATCH_PARENT
 import android.widget.LinearLayout
 import com.github.androiddevfr.form.core.DimensionUtils
-import com.github.androiddevfr.form.rows.AbstractTextRow
+import com.github.androiddevfr.form.rows.AbstractTitleRow
 import com.github.androiddevfr.form.rows.Row
 import com.github.androiddevfr.form.section.Section
 
@@ -50,7 +50,7 @@ class Form : LinearLayout {
         val map = mutableMapOf<Int, Any?>()
         sections.forEach { section: Section ->
             section.rows.forEach { row: Row<*> ->
-                if (row is AbstractTextRow<*>) {
+                if (row is AbstractTitleRow<*>) {
                     map.put(row.id, row.value())
                 }
             }
