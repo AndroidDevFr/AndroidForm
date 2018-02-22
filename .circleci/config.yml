@@ -2,12 +2,19 @@ version: 2.0
 
 references:
   workspace: &workspace
-    ~/kotlin-extensions
+    ~/androidform
 
   config_android: &config_android
     working_directory: *workspace
     docker:
       - image: circleci/android:api-27-alpha
+    environment:
+      TERM: dumb
+
+  config_gcloud: &config_gcloud
+    working_directory: *workspace
+    docker:
+      - image: google/cloud-sdk:latest
     environment:
       TERM: dumb
 

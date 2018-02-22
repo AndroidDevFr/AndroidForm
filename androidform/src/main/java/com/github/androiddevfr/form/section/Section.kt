@@ -11,11 +11,7 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import com.github.androiddevfr.form.core.DimensionUtils
 import com.github.androiddevfr.form.core.DimensionUtils.dpToPx
-import com.github.androiddevfr.form.rows.DateRow
-import com.github.androiddevfr.form.rows.PhoneRow
-import com.github.androiddevfr.form.rows.Row
-import com.github.androiddevfr.form.rows.SeekBarRow
-import com.github.androiddevfr.form.rows.TextRow
+import com.github.androiddevfr.form.rows.*
 
 class Section(private val context: Context, var title: String) {
 
@@ -38,11 +34,11 @@ class Section(private val context: Context, var title: String) {
     /**
      * Add a row with title/placeholder and an EditText
      *
-     * ---------------------------------
-     * | TITLE                         |
-     * |                      EDITTEXT |
-     * | PLACEHOLDER                   |
-     * ---------------------------------
+     * ----------------------------------------
+     * |        TITLE                         |
+     * | (icon)                     EDITTEXT  |
+     * |        PLACEHOLDER                   |
+     * ----------------------------------------
      */
     fun textRow(block: (TextRow.() -> Unit)): Section {
         return row(TextRow(context), block)
@@ -51,24 +47,37 @@ class Section(private val context: Context, var title: String) {
     /**
      * Add a row with title/placeholder and an EditText(phone)
      *
-     * ---------------------------------
-     * | TITLE                         |
-     * |                        PHONE  |
-     * | PLACEHOLDER                   |
-     * ---------------------------------
+     * ----------------------------------------
+     * |        TITLE                         |
+     * | (icon)                       PHONE   |
+     * |        PLACEHOLDER                   |
+     * ----------------------------------------
      */
     fun phoneRow(block: (PhoneRow.() -> Unit)): Section {
         return row(PhoneRow(context), block)
     }
 
     /**
+     * Add a row with title/placeholder and an EditText(email)
+     *
+     * ----------------------------------------
+     * |        TITLE                         |
+     * | (icon)                        PHONE  |
+     * |        PLACEHOLDER                   |
+     * ----------------------------------------
+     */
+    fun emailRow(block: (EmailRow.() -> Unit)): Section {
+        return row(EmailRow(context), block)
+    }
+
+    /**
      * Add a row with title/placeholder and an DatePicher)
      *
-     * ---------------------------------
-     * | TITLE                         |
-     * |                        DATE   | -> Open Date Picker
-     * | PLACEHOLDER                   |
-     * ---------------------------------
+     * ----------------------------------------
+     * |        TITLE                         |
+     * | (icon)                         DATE  | -> Open Date Picker
+     * |        PLACEHOLDER                   |
+     * ----------------------------------------
      */
     fun dateRow(block: (DateRow.() -> Unit)): Section {
         return row(DateRow(context), block)
@@ -77,11 +86,11 @@ class Section(private val context: Context, var title: String) {
     /**
      * Add a row with title/placeholder and a SeekBar
      *
-     * ---------------------------------
-     * | TITLE                         |
-     * |                     -----O--  |
-     * | PLACEHOLDER                   |
-     * ---------------------------------
+     * ----------------------------------------
+     * |        TITLE                         |
+     * | (icon)                    -----O--   |
+     * |        PLACEHOLDER                   |
+     * ----------------------------------------
      */
     fun seekBarRow(block: (SeekBarRow.() -> Unit)): Section {
         return row(SeekBarRow(context), block)

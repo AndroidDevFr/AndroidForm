@@ -24,24 +24,26 @@ class MainActivity : AppCompatActivity() {
                 textRow {
                     id = 2
                     title = "Text Row"
+
                     placeholder = "Enter text here"
                     validator = { s ->
                         s != null && s.length > 3
                     }
 
-                    //listeners
-                    addValueChangeListener<TextRow> { textRow, value ->
+                    onValueChanged<TextRow> { textRow, value ->
                         //change background following value, for example
                         //textRow.view?.background = ...
-                    }
-                    addOnViewCreatedListener<TextRow> { textRow ->
-
                     }
                 }
                 phoneRow {
                     id = 3
                     title = "Phone Row"
                     placeholder = "020202020202"
+                }
+                emailRow {
+                    id = 3
+                    title = "Email Row"
+                    placeholder = "android@gmail.com"
                 }
             }
             section("Section2") {

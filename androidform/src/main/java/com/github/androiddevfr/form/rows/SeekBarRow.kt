@@ -46,7 +46,7 @@ open class SeekBarRow(context: Context) : AbstractTitleRow<Int>(context) {
             layout.addView(seekBarView)
 
             //Generated the Title
-            createTitleView()
+            createTitleView(TITLE_VIEW_ID)
             val titleLayoutParams = RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT)
             titleLayoutParams.leftMargin = DimensionUtils.dpToPx(AbstractTitleRow.DEFAULT_MARGIN_LEFT)
             titleLayoutParams.topMargin = DimensionUtils.dpToPx(AbstractTitleRow.DEFAULT_MARGIN_TOP)

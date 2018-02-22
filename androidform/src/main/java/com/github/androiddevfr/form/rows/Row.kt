@@ -42,11 +42,11 @@ abstract class Row<V>(val context: Context) {
         this.onCreateView = block as (Row<V>) -> View
     }
 
-    fun <R : Row<V>> addOnViewCreatedListener(listener: ((R) -> Unit)) {
+    fun <R : Row<V>> onViewCreated(listener: ((R) -> Unit)) {
         viewCreatedListeners.add(listener as (Row<V>) -> Unit)
     }
 
-    fun <R : Row<V>> addValueChangeListener(listener: (R, V?) -> Unit){
+    fun <R : Row<V>> onValueChanged(listener: (R, V?) -> Unit){
         valueChangeListeners.add(listener as (Row<V>, V?) -> Unit)
     }
 

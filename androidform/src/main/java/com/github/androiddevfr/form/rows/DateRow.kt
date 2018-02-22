@@ -59,7 +59,8 @@ open class DateRow(context: Context) : AbstractTitleRow<Date>(context) {
             val layout = RelativeLayout(context)
 
             //Generated the DateView
-            createDateView()
+            createDateView(VALUE_VIEW_ID)
+
             val editTextLayoutParams = RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT)
             editTextLayoutParams.leftMargin = DimensionUtils.dpToPx(DEFAULT_MARGIN_LEFT)
             editTextLayoutParams.topMargin = DimensionUtils.dpToPx(DEFAULT_MARGIN_TOP)
@@ -72,7 +73,8 @@ open class DateRow(context: Context) : AbstractTitleRow<Date>(context) {
             layout.addView(dateView)
 
             //Generated the Title
-            createTitleView()
+            createTitleView(TITLE_VIEW_ID)
+
             val titleLayoutParams = RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT)
             titleLayoutParams.leftMargin = DimensionUtils.dpToPx(DEFAULT_MARGIN_LEFT)
             titleLayoutParams.topMargin = DimensionUtils.dpToPx(DEFAULT_MARGIN_TOP)
@@ -85,7 +87,7 @@ open class DateRow(context: Context) : AbstractTitleRow<Date>(context) {
 
             layout
         }
-        addOnViewCreatedListener<DateRow> {
+        onViewCreated<DateRow> {
             dateView?.setOnClickListener {
                 onValueClicked()
             }
@@ -95,8 +97,10 @@ open class DateRow(context: Context) : AbstractTitleRow<Date>(context) {
     /**
      * Use this lambda to change the visual aspect of the TitleView
      */
-    protected fun createDateView(): TextView {
+    protected fun createDateView(viewId: Int): TextView {
         dateView = AppCompatTextView(context)
+        dateView!!.id = viewId
+
         customizeDateView.invoke(this, this.dateView as TextView)
         return dateView as TextView
     }

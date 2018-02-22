@@ -20,12 +20,9 @@ form.create {
             }
 
             //listeners
-            addValueChangeListener<TextRow> { textRow, value ->
+            onValueChanged<TextRow> { textRow, value ->
                 //change background following value, for example
                 //textRow.view?.background = ...
-            }
-            addOnViewCreatedListener<TextRow> { textRow ->
-
             }
         }
         phoneRow {
