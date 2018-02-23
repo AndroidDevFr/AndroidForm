@@ -6,12 +6,12 @@ import android.util.Patterns
 import com.github.androiddevfr.form.R
 import com.github.androiddevfr.form.rows.enum.TextType
 
-open class PhoneRow(context: Context) : TextRow(context) {
+open class EmailRow(context: Context) : TextRow(context) {
 
     init {
-        validator = { v -> Patterns.PHONE.matcher(v).matches() }
-        inputType = TextType.Phone
-        icon = AppCompatResources.getDrawable(context, R.drawable.ic_phone_black_24dp)
+        validator = { v -> Patterns.EMAIL_ADDRESS.matcher(v).matches() }
+        inputType = TextType.Email
+        icon = AppCompatResources.getDrawable(context, R.drawable.ic_email_black_24dp)
     }
 
 }

@@ -59,33 +59,37 @@ open class DateRow(context: Context) : AbstractTitleRow<Date>(context) {
             val layout = RelativeLayout(context)
 
             //Generated the DateView
-            createDateView()
-            val editTextLayoutParams = RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT)
-            editTextLayoutParams.leftMargin = DimensionUtils.dpToPx(DEFAULT_MARGIN_LEFT)
-            editTextLayoutParams.topMargin = DimensionUtils.dpToPx(DEFAULT_MARGIN_TOP)
-            editTextLayoutParams.bottomMargin = DimensionUtils.dpToPx(DEFAULT_MARGIN_BOTTOM)
-            editTextLayoutParams.rightMargin = DimensionUtils.dpToPx(DEFAULT_MARGIN_RIGHT)
-            editTextLayoutParams.addRule(RelativeLayout.CENTER_VERTICAL)
-            editTextLayoutParams.addRule(RelativeLayout.ALIGN_PARENT_RIGHT)
-            dateView?.layoutParams = editTextLayoutParams
+            createDateView(VALUE_VIEW_ID)
+
             dateView?.text = dateFormatter.format(defaultDate)
-            layout.addView(dateView)
+            layout.addView(dateView, RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT).apply {
+                setMargins(
+                        DimensionUtils.dpToPx(DEFAULT_MARGIN_LEFT),
+                        DimensionUtils.dpToPx(DEFAULT_MARGIN_TOP),
+                        DimensionUtils.dpToPx(DEFAULT_MARGIN_RIGHT),
+                        DimensionUtils.dpToPx(DEFAULT_MARGIN_BOTTOM)
+                )
+                addRule(RelativeLayout.CENTER_VERTICAL)
+                addRule(RelativeLayout.ALIGN_PARENT_RIGHT)
+            })
 
             //Generated the Title
-            createTitleView()
-            val titleLayoutParams = RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT)
-            titleLayoutParams.leftMargin = DimensionUtils.dpToPx(DEFAULT_MARGIN_LEFT)
-            titleLayoutParams.topMargin = DimensionUtils.dpToPx(DEFAULT_MARGIN_TOP)
-            titleLayoutParams.bottomMargin = DimensionUtils.dpToPx(DEFAULT_MARGIN_BOTTOM)
-            titleLayoutParams.rightMargin = DimensionUtils.dpToPx(DEFAULT_MARGIN_RIGHT)
-            titleLayoutParams.addRule(RelativeLayout.CENTER_VERTICAL)
-            titleLayoutParams.addRule(RelativeLayout.ALIGN_PARENT_LEFT)
-            titleView?.layoutParams = titleLayoutParams
-            layout.addView(titleView)
+            createTitleView(TITLE_VIEW_ID)
+
+            layout.addView(titleView, RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT).apply {
+                setMargins(
+                        DimensionUtils.dpToPx(DEFAULT_MARGIN_LEFT),
+                        DimensionUtils.dpToPx(DEFAULT_MARGIN_TOP),
+                        DimensionUtils.dpToPx(DEFAULT_MARGIN_RIGHT),
+                        DimensionUtils.dpToPx(DEFAULT_MARGIN_BOTTOM)
+                )
+                addRule(RelativeLayout.CENTER_VERTICAL)
+                addRule(RelativeLayout.ALIGN_PARENT_LEFT)
+            })
 
             layout
         }
-        addOnViewCreatedListener<DateRow> {
+        onViewCreated<DateRow> {
             dateView?.setOnClickListener {
                 onValueClicked()
             }
@@ -95,8 +99,10 @@ open class DateRow(context: Context) : AbstractTitleRow<Date>(context) {
     /**
      * Use this lambda to change the visual aspect of the TitleView
      */
-    protected fun createDateView(): TextView {
+    protected fun createDateView(viewId: Int): TextView {
         dateView = AppCompatTextView(context)
+        dateView!!.id = viewId
+
         customizeDateView.invoke(this, this.dateView as TextView)
         return dateView as TextView
     }

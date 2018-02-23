@@ -1,9 +1,8 @@
 package com.github.androiddevfr.form
 
 import android.content.Context
-import android.graphics.Color
+import android.support.v4.widget.NestedScrollView
 import android.util.AttributeSet
-import android.view.View
 import android.view.ViewGroup
 import android.view.ViewGroup.LayoutParams.MATCH_PARENT
 import android.widget.LinearLayout
@@ -12,17 +11,29 @@ import com.github.androiddevfr.form.rows.AbstractTitleRow
 import com.github.androiddevfr.form.rows.Row
 import com.github.androiddevfr.form.section.Section
 
-class Form : LinearLayout {
+class Form : NestedScrollView {
+
+    companion object {
+        val SECTION_MARGIN_LEFT = 8
+        val SECTION_MARGIN_RIGHT = 8
+        val SECTION_MARGIN_TOP = 8
+        val SECTION_MARGIN_BOTTOM = 8
+    }
 
     val sections = mutableListOf<Section>()
     val formCreator = FormCreator(this)
+
+    val layout: ViewGroup;
 
     constructor(context: Context?) : super(context)
     constructor(context: Context?, attrs: AttributeSet?) : super(context, attrs)
     constructor(context: Context?, attrs: AttributeSet?, defStyleAttr: Int) : super(context, attrs, defStyleAttr)
 
     init {
-        orientation = VERTICAL
+        layout = LinearLayout(context).apply {
+            orientation = LinearLayout.VERTICAL
+        }
+        addView(layout)
     }
 
     fun create(block: (FormCreator.() -> Unit)): FormCreator {
@@ -35,14 +46,19 @@ class Form : LinearLayout {
      * Construct the form's view
      */
     private fun build() {
-        removeAllViews()
+        layout.removeAllViews()
 
-        for (index in 0 until sections.size) {
-            if (index > 0) {
-                addView(formCreator.onCreateSectionDivider.invoke(index))
-            }
-            val sectionView = sections[index].onCreateView()
-            addView(sectionView, sectionView.layoutParams)
+        sections.forEach { section ->
+            layout.addView(
+                    section.onCreateView(),
+                    LinearLayout.LayoutParams(MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT).apply {
+                        setMargins(
+                                DimensionUtils.dpToPx(SECTION_MARGIN_LEFT),
+                                DimensionUtils.dpToPx(SECTION_MARGIN_TOP),
+                                DimensionUtils.dpToPx(SECTION_MARGIN_RIGHT),
+                                DimensionUtils.dpToPx(SECTION_MARGIN_BOTTOM)
+                        )
+                    })
         }
     }
 
@@ -72,24 +88,12 @@ class Form : LinearLayout {
 
 class FormCreator(private val form: Form) {
 
-    var sectionDividerHeight = DimensionUtils.dpToPx(16f)
-    var sectionDividerColor = Color.TRANSPARENT
-
     fun section(title: String, block: Section.() -> Unit): FormCreator {
-        val section = Section(form.context, title)
-        form.sections.add(section)
-        block.invoke(section)
-        return this
-    }
-
-    /**
-     * Set lambda to have a custom section divider
-     */
-    var onCreateSectionDivider: ((Int) -> View) = {
-        val divider = View(form.context)
-        divider.setBackgroundColor(sectionDividerColor)
-        divider.layoutParams = ViewGroup.LayoutParams(MATCH_PARENT, sectionDividerHeight)
-        divider
+        Section(form.context, title).apply {
+            form.sections.add(this)
+            block.invoke(this)
+        }
+        return this;
     }
 
 }

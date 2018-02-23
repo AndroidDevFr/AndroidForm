@@ -5,6 +5,16 @@ import android.view.View
 import android.view.ViewGroup
 
 abstract class Row<V>(val context: Context) {
+
+    companion object {
+        private var viewId = 100
+
+        fun generateRowItemId(): Int {
+            viewId += 1
+            return viewId
+        }
+    }
+
     var id: Int = -1
 
     var validator: ((V?) -> Boolean) = { v -> false }
@@ -42,11 +52,11 @@ abstract class Row<V>(val context: Context) {
         this.onCreateView = block as (Row<V>) -> View
     }
 
-    fun <R : Row<V>> addOnViewCreatedListener(listener: ((R) -> Unit)) {
+    fun <R : Row<V>> onViewCreated(listener: ((R) -> Unit)) {
         viewCreatedListeners.add(listener as (Row<V>) -> Unit)
     }
 
-    fun <R : Row<V>> addValueChangeListener(listener: (R, V?) -> Unit){
+    fun <R : Row<V>> onValueChanged(listener: (R, V?) -> Unit){
         valueChangeListeners.add(listener as (Row<V>, V?) -> Unit)
     }
 
