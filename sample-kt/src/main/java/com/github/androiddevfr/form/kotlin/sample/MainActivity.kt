@@ -26,6 +26,7 @@ class MainActivity : AppCompatActivity() {
                     title = "Text Row"
 
                     placeholder = "Enter text here"
+
                     validator = { s ->
                         s != null && s.length > 3
                     }
@@ -54,6 +55,19 @@ class MainActivity : AppCompatActivity() {
                     defaultDate = Date()
                     value = Date()
                 }
+
+                singleChoice {
+                    id = 6
+                    title = "Single Choice"
+                    items = listOf("Item 0", "Item 1", "Item 2")
+                }
+
+                multiChoice {
+                    id = 6
+                    title = "Multi Choice"
+                    items = listOf("Item 0", "Item 1", "Item 2")
+                }
+
             }
             section("Section 3") {
                 id = 6

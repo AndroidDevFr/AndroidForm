@@ -12,7 +12,7 @@ abstract class AbstractTitleRow<V>(context: Context) : Row<V>(context) {
 
     companion object {
         val DEFAULT_MARGIN_TOP = 6
-        val DEFAULT_MARGIN_BOTTOM = 6
+        val DEFAULT_MARGIN_BOTTOM = 8
         val DEFAULT_MARGIN_LEFT = 16
         val DEFAULT_MARGIN_RIGHT = 16
 
@@ -43,18 +43,21 @@ abstract class AbstractTitleRow<V>(context: Context) : Row<V>(context) {
      * Use this lambda to change the visual aspect of the TitleView
      */
     protected fun createTitleView(viewId: Int): TextView {
-        titleView = AppCompatTextView(context)
-        titleView!!.text = title
-        titleView!!.id = viewId
+        titleView = AppCompatTextView(context).apply {
+            text = title
+            id = viewId
+        }
+
         customizeTitleView.invoke(this, this.titleView as TextView)
         return titleView as TextView
     }
 
     //TODO into a lambda -> eg: round imageview ?
     protected fun createIconView(viewId: Int): ImageView {
-        iconView = AppCompatImageView(context)
-        iconView!!.setImageDrawable(icon)
-        iconView!!.id = viewId
+        iconView = AppCompatImageView(context).apply {
+            setImageDrawable(icon)
+            id = viewId
+        }
         customizeIconView.invoke(this, this.iconView as ImageView)
         return iconView as ImageView
     }

@@ -30,6 +30,7 @@ form.create {
             title = "Phone Row"
             placeholder = "020202020202"
         }
+
     }
     section("Section2") {
         id = 1
@@ -37,6 +38,12 @@ form.create {
             id = 5
             title = "Text Row"
             value = Date()
+        }
+
+        singleChoice {
+             id = 6
+             title = "Single Choice"
+             items = listOf("Item 0", "Item 1", "Item 2")
         }
     }
 

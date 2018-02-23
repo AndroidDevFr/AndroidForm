@@ -2,7 +2,9 @@ package com.github.androiddevfr.form.section
 
 import android.content.Context
 import android.graphics.Color
+import android.graphics.Typeface
 import android.support.v7.widget.AppCompatTextView
+import android.support.v7.widget.CardView
 import android.view.View
 import android.view.ViewGroup
 import android.view.ViewGroup.LayoutParams.MATCH_PARENT
@@ -16,6 +18,11 @@ import com.github.androiddevfr.form.rows.*
 class Section(private val context: Context, var title: String) {
 
     companion object {
+        val SECTION_PADDING_LEFT = 8
+        val SECTION_PADDING_RIGHT = 8
+        val SECTION_PADDING_TOP = 8
+        val SECTION_PADDING_BOTTOM = 8
+
         val TITLE_DEFAULT_MARGIN_TOP = 6
         val TITLE_DEFAULT_MARGIN_BOTTOM = 6
         val TITLE_DEFAULT_MARGIN_LEFT = 16
@@ -23,7 +30,7 @@ class Section(private val context: Context, var title: String) {
     }
 
     var id = -1
-    var titleTextColor = Color.parseColor("#2196F3")
+    var titleTextColor = Color.parseColor("#424FB5")
     var rowDividerColor = Color.TRANSPARENT
     var rowDividerHeight = dpToPx(1)
 
@@ -71,7 +78,7 @@ class Section(private val context: Context, var title: String) {
     }
 
     /**
-     * Add a row with title/placeholder and an DatePicher)
+     * Add a row with title/placeholder and an DatePicker)
      *
      * ----------------------------------------
      * |        TITLE                         |
@@ -96,6 +103,23 @@ class Section(private val context: Context, var title: String) {
         return row(SeekBarRow(context), block)
     }
 
+    /**
+     * Add a single/multi choice row)
+     *
+     * ----------------------------------------
+     * |        TITLE                         |
+     * | (icon)                         DATE  | -> Open Date Picker
+     * |        PLACEHOLDER                   |
+     * ----------------------------------------
+     */
+    fun multiChoice(block: (MultiChoiceRow.() -> Unit)): Section {
+        return row(MultiChoiceRow(context), block)
+    }
+
+    fun singleChoice(block: (SingleChoiceRow.() -> Unit)): Section {
+        return row(SingleChoiceRow(context), block)
+    }
+
     fun <R : Row<*>> row(row: R, block: (R.() -> Unit)): Section {
         rows.add(row)
         block.invoke(row)
@@ -111,11 +135,32 @@ class Section(private val context: Context, var title: String) {
     }
 
     fun onCreateView(): View {
-        val layout = LinearLayout(context)
-        layout.orientation = LinearLayout.VERTICAL
+        val cardView = CardView(context).apply {
+            setContentPadding(
+                    DimensionUtils.dpToPx(SECTION_PADDING_LEFT),
+                    DimensionUtils.dpToPx(SECTION_PADDING_TOP),
+                    DimensionUtils.dpToPx(SECTION_PADDING_RIGHT),
+                    DimensionUtils.dpToPx(SECTION_PADDING_BOTTOM)
+            )
+        }
 
-        titleView = createSectionTitleView()
-        layout.addView(titleView, titleView?.layoutParams)
+        val layout = LinearLayout(context).apply {
+            orientation = LinearLayout.VERTICAL
+            layoutParams = ViewGroup.MarginLayoutParams(MATCH_PARENT, WRAP_CONTENT)
+            cardView.addView(this)
+        }
+
+        titleView = createSectionTitleView().apply {
+            layout.addView(this, LinearLayout.LayoutParams(WRAP_CONTENT, WRAP_CONTENT).apply {
+                setMargins(
+                        DimensionUtils.dpToPx(TITLE_DEFAULT_MARGIN_LEFT),
+                        DimensionUtils.dpToPx(TITLE_DEFAULT_MARGIN_TOP),
+                        DimensionUtils.dpToPx(TITLE_DEFAULT_MARGIN_RIGHT),
+                        DimensionUtils.dpToPx(TITLE_DEFAULT_MARGIN_BOTTOM)
+                )
+            })
+        }
+
 
         for (index in 0 until rows.size) {
             val row = rows[index]
@@ -126,16 +171,14 @@ class Section(private val context: Context, var title: String) {
             }
         }
 
-        layout.layoutParams = ViewGroup.MarginLayoutParams(MATCH_PARENT, WRAP_CONTENT)
-
-        return layout
+        return cardView
     }
 
     var onCreateDivider: ((Int) -> View) = {
-        val divider = View(context)
-        divider.setBackgroundColor(rowDividerColor)
-        divider.layoutParams = ViewGroup.MarginLayoutParams(MATCH_PARENT, rowDividerHeight)
-        divider
+        View(context).apply {
+            setBackgroundColor(rowDividerColor)
+            layoutParams = ViewGroup.MarginLayoutParams(MATCH_PARENT, rowDividerHeight)
+        }
     }
 
     /**
@@ -149,27 +192,15 @@ class Section(private val context: Context, var title: String) {
      * Use this lambda to change the visual aspect of the TitleView
      */
     protected fun createSectionTitleView(): TextView {
+        return AppCompatTextView(context).apply {
+            text = title
+            setTextColor(titleTextColor)
+            typeface = Typeface.DEFAULT_BOLD
+            textSize = 14f
 
-        val titleView = AppCompatTextView(context)
-        titleView.text = title
-        val layoutParams = ViewGroup.MarginLayoutParams(WRAP_CONTENT, WRAP_CONTENT)
-        titleView.layoutParams = layoutParams
 
-        //margin not working here
-        titleView.setPadding(
-                DimensionUtils.dpToPx(TITLE_DEFAULT_MARGIN_LEFT),
-                DimensionUtils.dpToPx(TITLE_DEFAULT_MARGIN_TOP),
-                DimensionUtils.dpToPx(TITLE_DEFAULT_MARGIN_BOTTOM),
-                DimensionUtils.dpToPx(TITLE_DEFAULT_MARGIN_RIGHT))
-
-        titleView.layoutParams = layoutParams
-        titleView.setTextColor(titleTextColor)
-        titleView.text = this.title
-        titleView.textSize = 16f
-
-        customizeTitleView.invoke(this, titleView)
-
-        return titleView
+            customizeTitleView.invoke(this@Section, this);
+        }
     }
 
 }

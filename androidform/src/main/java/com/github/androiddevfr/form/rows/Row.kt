@@ -5,6 +5,16 @@ import android.view.View
 import android.view.ViewGroup
 
 abstract class Row<V>(val context: Context) {
+
+    companion object {
+        private var viewId = 100
+
+        fun generateRowItemId(): Int {
+            viewId += 1
+            return viewId
+        }
+    }
+
     var id: Int = -1
 
     var validator: ((V?) -> Boolean) = { v -> false }
