@@ -12,6 +12,8 @@ abstract class AbstractTitleRow<V>(context: Context) : Row<V>(context) {
 
     companion object {
         val DEFAULT_MARGIN_TOP = 6
+        val DEFAULT_TITLE_MARGIN_BOTTOM = 4
+        val DEFAULT_ICON_MARGIN_TOP = 8
         val DEFAULT_MARGIN_BOTTOM = 8
         val DEFAULT_MARGIN_LEFT = 16
         val DEFAULT_MARGIN_RIGHT = 16
@@ -32,8 +34,8 @@ abstract class AbstractTitleRow<V>(context: Context) : Row<V>(context) {
      * Implementation of the TitleView visual aspect
      */
     protected var customizeTitleView: ((AbstractTitleRow<V>, TextView) -> Unit) = { row, textView ->
-        textView.setTextColor(Color.parseColor("#3E3E3E"))
-        textView.textSize = 16f
+        textView.setTextColor(Color.parseColor("#BEBEBE"))
+        textView.textSize = 12f
     }
 
     protected var customizeIconView: ((AbstractTitleRow<V>, ImageView) -> Unit) = { row, imageView ->

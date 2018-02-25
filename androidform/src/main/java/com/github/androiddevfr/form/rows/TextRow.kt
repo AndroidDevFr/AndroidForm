@@ -2,6 +2,7 @@ package com.github.androiddevfr.form.rows
 
 import android.content.Context
 import android.graphics.Color
+import android.view.ViewGroup.LayoutParams.MATCH_PARENT
 import android.view.ViewGroup.LayoutParams.WRAP_CONTENT
 import android.widget.EditText
 import android.widget.RelativeLayout
@@ -67,44 +68,37 @@ open class TextRow(context: Context) : AbstractTitleRow<String>(context) {
                 iconView = createIconView(ICON_VIEW_ID)
             }
 
-            val titleLayoutParams = RelativeLayout.LayoutParams(WRAP_CONTENT, WRAP_CONTENT).apply {
-                leftMargin = DimensionUtils.dpToPx(DEFAULT_MARGIN_LEFT)
-                topMargin = DimensionUtils.dpToPx(DEFAULT_MARGIN_TOP)
-                bottomMargin = DimensionUtils.dpToPx(DEFAULT_MARGIN_BOTTOM)
-                rightMargin = DimensionUtils.dpToPx(DEFAULT_MARGIN_RIGHT)
-
-                addRule(RelativeLayout.CENTER_VERTICAL)
-            }
-
             if (iconView != null) {
-                titleLayoutParams.leftMargin = 0
-
-                titleLayoutParams.addRule(RelativeLayout.RIGHT_OF, iconView!!.id)
                 layout.addView(iconView, RelativeLayout.LayoutParams(WRAP_CONTENT, WRAP_CONTENT).apply {
                     leftMargin = DimensionUtils.dpToPx(DEFAULT_MARGIN_LEFT)
-                    topMargin = DimensionUtils.dpToPx(DEFAULT_MARGIN_TOP)
+                    topMargin = DimensionUtils.dpToPx(DEFAULT_ICON_MARGIN_TOP)
                     bottomMargin = DimensionUtils.dpToPx(DEFAULT_MARGIN_BOTTOM)
                     rightMargin = DimensionUtils.dpToPx(DEFAULT_MARGIN_RIGHT)
 
-                    addRule(RelativeLayout.CENTER_VERTICAL)
-                    addRule(RelativeLayout.ALIGN_PARENT_LEFT)
+                    addRule(RelativeLayout.BELOW, TITLE_VIEW_ID)
+                    addRule(RelativeLayout.ALIGN_LEFT, TITLE_VIEW_ID)
                 })
-            } else {
-                titleLayoutParams.addRule(RelativeLayout.ALIGN_PARENT_LEFT)
             }
 
-            layout.addView(editView, RelativeLayout.LayoutParams(WRAP_CONTENT, WRAP_CONTENT).apply {
-                setMargins(
-                        DimensionUtils.dpToPx(DEFAULT_MARGIN_LEFT),
-                        DimensionUtils.dpToPx(DEFAULT_MARGIN_TOP),
-                        DimensionUtils.dpToPx(DEFAULT_MARGIN_BOTTOM),
-                        DimensionUtils.dpToPx(DEFAULT_MARGIN_RIGHT)
+            layout.addView(editView, RelativeLayout.LayoutParams(MATCH_PARENT, WRAP_CONTENT).apply {
+                if(iconView != null){
+                    addRule(RelativeLayout.RIGHT_OF, ICON_VIEW_ID)
+                    addRule(RelativeLayout.BELOW, TITLE_VIEW_ID)
 
-                )
-                addRule(RelativeLayout.CENTER_VERTICAL)
-                addRule(RelativeLayout.ALIGN_PARENT_RIGHT)
+                    leftMargin = DimensionUtils.dpToPx(DEFAULT_MARGIN_LEFT)
+                    rightMargin = DimensionUtils.dpToPx(DEFAULT_MARGIN_RIGHT)
+                } else {
+                    addRule(RelativeLayout.BELOW, TITLE_VIEW_ID)
+                    addRule(RelativeLayout.ALIGN_LEFT, TITLE_VIEW_ID)
+
+
+                    rightMargin = DimensionUtils.dpToPx(DEFAULT_MARGIN_RIGHT)
+                    bottomMargin = DimensionUtils.dpToPx(DEFAULT_MARGIN_BOTTOM)
+                }
             })
-            layout.addView(titleView, titleLayoutParams)
+            layout.addView(titleView, RelativeLayout.LayoutParams(WRAP_CONTENT, WRAP_CONTENT).apply {
+                leftMargin = DimensionUtils.dpToPx(DEFAULT_MARGIN_LEFT)
+            })
 
             layout
         }
