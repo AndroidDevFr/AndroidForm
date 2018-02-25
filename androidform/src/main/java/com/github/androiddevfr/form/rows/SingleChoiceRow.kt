@@ -16,7 +16,7 @@ class SingleChoiceRow(context: Context) : AbstractTitleRow<String?>(context) {
     private var value: String? = null
 
     var items: List<String> = listOf<String>()
-    var defaultChecked: List<String> = listOf<String>()
+    var defaultChecked: String? = null
 
     var customizeSingleChoiceView: (SingleChoiceRow, CompoundButton) -> Unit = { choiceRow, compoundButton ->
 
@@ -46,7 +46,7 @@ class SingleChoiceRow(context: Context) : AbstractTitleRow<String?>(context) {
                         })
 
                 items.forEach { item ->
-                    addView(createSingleChoiceView(generateRowItemId(), item, defaultChecked.contains(item)))
+                    addView(createSingleChoiceView(generateRowItemId(), item, defaultChecked == item))
                 }
 
                 setOnCheckedChangeListener { buttonView, checkedId ->

@@ -104,18 +104,32 @@ class Section(private val context: Context, var title: String) {
     }
 
     /**
-     * Add a single/multi choice row)
+     * Add a row with title/placeholder and a Spinner
      *
      * ----------------------------------------
-     * |        TITLE                         |
-     * | (icon)                         DATE  | -> Open Date Picker
-     * |        PLACEHOLDER                   |
+     * | TITLE                                |
+     * |                                      |
+     * |        -----------------------       |
+     * | (icon) | default           v |       |
+     * |        -----------------------       |
      * ----------------------------------------
+     */
+    fun selection(block: (SelectionRow.() -> Unit)): Section {
+        return row(SelectionRow(context), block)
+    }
+
+    /**
+     * Add a multi choice row
+     * TODO schema
      */
     fun multiChoice(block: (MultiChoiceRow.() -> Unit)): Section {
         return row(MultiChoiceRow(context), block)
     }
 
+    /**
+     * Add a single choice row
+     * TODO schema
+     */
     fun singleChoice(block: (SingleChoiceRow.() -> Unit)): Section {
         return row(SingleChoiceRow(context), block)
     }

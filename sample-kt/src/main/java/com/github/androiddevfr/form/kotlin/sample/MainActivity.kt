@@ -42,7 +42,7 @@ class MainActivity : AppCompatActivity() {
                     placeholder = "020202020202"
                 }
                 emailRow {
-                    id = 3
+                    id = 4
                     title = "Email Row"
                     placeholder = "android@gmail.com"
                 }
@@ -50,32 +50,41 @@ class MainActivity : AppCompatActivity() {
             section("Section2") {
                 id = 1
                 dateRow {
-                    id = 5
+                    id = 15
                     title = "Date Row"
                     defaultDate = Date()
                     value = Date()
                 }
 
                 singleChoice {
-                    id = 6
+                    id = 16
                     title = "Single Choice"
                     items = listOf("Item 0", "Item 1", "Item 2")
+                    defaultChecked = "Item 1"
                 }
 
                 multiChoice {
-                    id = 6
+                    id = 17
                     title = "Multi Choice"
                     items = listOf("Item 0", "Item 1", "Item 2")
+                    defaultChecked = listOf("Item 0", "Item 2")
                 }
 
             }
             section("Section 3") {
-                id = 6
+                id = 36
                 seekBarRow {
-                    id = 7
+                    id = 37
                     title = "Slider row"
                     maxValue = 42
                     value = 33
+                }
+
+                selection {
+                    id = 38
+                    title = "Please choose a country"
+                    items = listOf("France", "England", "Spain")
+                    defaultItem = "England"
                 }
             }
         }
